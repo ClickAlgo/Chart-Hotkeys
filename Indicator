@@ -1,0 +1,31 @@
+
+using cAlgo.API;
+using System;
+
+namespace cAlgo
+{
+    [Indicator(IsOverlay = true, TimeZone = TimeZones.UTC, AccessRights = AccessRights.None)]
+    internal class HotKeys : Indicator
+    {
+        [Parameter("Modifier Key", DefaultValue = ModifierKeys.Alt)]
+        public ModifierKeys ModifierKeyAlt { get; set; }
+
+        [Parameter("Key", DefaultValue = Key.A)]
+        public Key KeyA { get; set; }
+
+        public override void Calculate(int index)
+        {
+
+        }
+
+        protected override void Initialize()
+        {
+            Chart.AddHotkey(() => KeyHandler(), KeyA, ModifierKeyAlt);
+        }
+
+        private void KeyHandler()
+        {
+            Chart.DrawStaticText("keys", DateTime.Now.ToString() + "Alt A Key pressed", VerticalAlignment.Top, HorizontalAlignment.Left, Color.Red);
+        }
+    }
+}
